@@ -8,16 +8,17 @@ export default class Form extends Component {
     name: '',
     number: '',
   };
-  onInputChange = e => {
+  handleInputChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
-  onSubmit = e => {
+  handleSubmit = e => {
+    const { name, number } = this.state;
     e.preventDefault();
     const contact = {
       id: uuidv4(),
-      name: this.state.name,
-      number: this.state.number,
+      name,
+      number,
     };
     this.props.onSubmit(contact);
     this.reset();
@@ -27,13 +28,15 @@ export default class Form extends Component {
   };
 
   render() {
+    const { name, number } = this.state;
+    const { handleSubmit, handleInputChange } = this;
     return (
-      <form className={s.form} onSubmit={this.onSubmit}>
+      <form className={s.form} onSubmit={handleSubmit}>
         <label className={s.label}>
           Name
           <input
-            onChange={this.onInputChange}
-            value={this.state.name}
+            onChange={handleInputChange}
+            value={name}
             className={s.input}
             type="text"
             name="name"
@@ -45,9 +48,9 @@ export default class Form extends Component {
         <label className={s.label}>
           Phone
           <input
-            value={this.state.number}
+            value={number}
             className={s.input}
-            onChange={this.onInputChange}
+            onChange={handleInputChange}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

@@ -42,16 +42,17 @@ class App extends Component {
   };
   render() {
     const { filter } = this.state;
+    const { formSubmitHandler, changeFilter, deleteContact } = this;
     const visibleContacts = this.getVisibleContact();
     return (
       <Container>
         <h1 className={s.title}>Phonebook</h1>
-        <Form onSubmit={this.formSubmitHandler} />
-        <Filter value={filter} onChange={this.changeFilter} />
+        <Form onSubmit={formSubmitHandler} />
+        <Filter value={filter} onChange={changeFilter} />
         <h2 className={s.contactTitle}>Contacts</h2>
         <ContactList
           contacts={visibleContacts}
-          onDeleteContact={this.deleteContact}
+          onDeleteContact={deleteContact}
         />
       </Container>
     );
