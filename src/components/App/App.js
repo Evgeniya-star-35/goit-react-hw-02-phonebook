@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import Container from './components/Container';
-import Form from './components/Form';
-import Filter from './components/Filter';
-import ContactList from './components/ContactsList';
-import initialContacts from './contacts.json';
+import Container from '../Container';
+import Form from '../Form';
+import Filter from '../Filter';
+import ContactList from '../ContactsList';
+import initialContacts from '../../contacts.json';
 import s from './App.module.css';
 
 class App extends Component {
@@ -12,15 +12,14 @@ class App extends Component {
     filter: '',
   };
   formSubmitHandler = data => {
-    this.state.contacts.forEach(element => {
-      if (element.name.toLowerCase() === data.name.toLowerCase()) {
-        data.name = 'repeat';
-        return alert('contact is already in the directory');
-      }
-    });
-    if (data.name === 'repeat') {
-      return;
+    if (
+      this.state.contacts.some(
+        element => element.name.toLowerCase() === data.name.toLowerCase(),
+      )
+    ) {
+      return alert('contact is already in the directory');
     }
+
     this.setState(({ contacts }) => ({
       contacts: [data, ...contacts],
     }));
