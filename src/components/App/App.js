@@ -12,11 +12,10 @@ class App extends Component {
     filter: '',
   };
   formSubmitHandler = data => {
-    if (
-      this.state.contacts.some(
-        element => element.name.toLowerCase() === data.name.toLowerCase(),
-      )
-    ) {
+    const comparableElement = this.state.contacts.some(
+      element => element.name.toLowerCase() === data.name.toLowerCase(),
+    );
+    if (comparableElement) {
       return alert('contact is already in the directory');
     }
 
